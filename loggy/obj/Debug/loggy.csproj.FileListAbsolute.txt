@@ -1,0 +1,9 @@
+c:\users\theflash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\loggy.csprojResolveAssemblyReference.cache
+c:\users\theflash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\loggy.csproj.GenerateResource.Cache
+c:\users\theflash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\loggy.Microsoft__Update.resources
+C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\bin\Debug\Microsoft_Update.exe.config
+C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\bin\Debug\Microsoft_Update.exe
+C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\bin\Debug\Microsoft_Update.pdb
+C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\Microsoft_Update.Properties.Resources.resources
+C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\Microsoft_Update.exe
+C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\Microsoft_Update.pdb
