@@ -7,3 +7,12 @@ C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\bin\Debug\Mi
 C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\Microsoft_Update.Properties.Resources.resources
 C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\Microsoft_Update.exe
 C:\Users\TheFlash\documents\visual studio 2017\Projects\loggy\loggy\obj\Debug\Microsoft_Update.pdb
+B:\Ly Trung\New folder (2)\loggy\loggy\bin\Debug\Microsoft_Update.exe.config
+B:\Ly Trung\New folder (2)\loggy\loggy\bin\Debug\Microsoft_Update.exe
+B:\Ly Trung\New folder (2)\loggy\loggy\bin\Debug\Microsoft_Update.pdb
+B:\Ly Trung\New folder (2)\loggy\loggy\obj\Debug\loggy.csprojResolveAssemblyReference.cache
+B:\Ly Trung\New folder (2)\loggy\loggy\obj\Debug\loggy.Microsoft__Update.resources
+B:\Ly Trung\New folder (2)\loggy\loggy\obj\Debug\Microsoft_Update.Properties.Resources.resources
+B:\Ly Trung\New folder (2)\loggy\loggy\obj\Debug\loggy.csproj.GenerateResource.Cache
+B:\Ly Trung\New folder (2)\loggy\loggy\obj\Debug\Microsoft_Update.exe
+B:\Ly Trung\New folder (2)\loggy\loggy\obj\Debug\Microsoft_Update.pdb

